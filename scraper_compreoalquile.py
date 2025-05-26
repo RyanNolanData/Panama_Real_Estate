@@ -96,20 +96,20 @@ df2['price_per_m2'] = df2['price'] / df2['size']
 
 #CITIES PRICES ARE NOT FINAL!
 city_prices = {
-    'El Cangrejo': 1800,
-    'El Carmen': 1700,
-    'Obarrio': 1900,
-    'Costa del Este': 2400,
-    'Marbella': 2300,
-    'Chanis': 1600,
-    'La Alameda': 1500,
-    'El Ingenio': 1550,
-    'Betania': 1450,
-    'Pueblo Nuevo': 1400,
-    'Tumba Muerto': 1350,
-    'Santa María': 2500,
-    'San Miguel': 1300,
-    'La Locería': 1380
+    'El Cangrejo': 2035,
+    'El Carmen': 1770,
+    'Obarrio': 2365,
+    'Costa del Este': 2930,
+    'Marbella': 2540,
+    'Chanis': 1490,
+    'La Alameda': 1665,
+    'El Ingenio': 1530,
+    'Betania': 1490,
+    'Pueblo Nuevo': 1205,
+    'Tumba Muerto': 1310,
+    'Santa María': 3065,
+    'San Miguel': 1160,
+    'La Locería': 1620
 }
 
 #Filters down by city
