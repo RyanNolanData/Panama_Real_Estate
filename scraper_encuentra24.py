@@ -194,7 +194,11 @@ df2['price_reduced'] = df2['description'].str.contains(reduced_pattern, case=Fal
 df2['negotiate'] = df2['description'].str.contains(negotiate_pattern, case=False, na=False)
 df2['urgent'] = df2['description'].str.contains(urgent_pattern, case=False, na=False)
 
+
+
 print(df2)
+
+
 
 #Part 3
 #Compare price per square meter to area-specific benchmarks (provided) -> Done
@@ -207,3 +211,7 @@ print(df2)
 #Export matching listings to Google Sheets
 #All Listings Tab
 #New Listings Tab
+
+
+
+
