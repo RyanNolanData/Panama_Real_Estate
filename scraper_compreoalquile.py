@@ -94,15 +94,87 @@ df2 = df[(df['size'] >= 70) & (df['price'] <= 500000)]
 df2['price'].fillna(1)
 df2['price_per_m2'] = df2['price'] / df2['size']
 
-# Keyword detection
-renovation_keywords = ['remodelar', 'reformar', 'renovar', 'reparar', 'actualizar', 'mejorar']
-reduced_keywords = ['rebajada', 'descuento', 'oferta', 'negociable', 'bajada de precio']
+#CITIES PRICES ARE NOT FINAL!
+city_prices = {
+    'El Cangrejo': 1800,
+    'El Carmen': 1700,
+    'Obarrio': 1900,
+    'Costa del Este': 2400,
+    'Marbella': 2300,
+    'Chanis': 1600,
+    'La Alameda': 1500,
+    'El Ingenio': 1550,
+    'Betania': 1450,
+    'Pueblo Nuevo': 1400,
+    'Tumba Muerto': 1350,
+    'Santa María': 2500,
+    'San Miguel': 1300,
+    'La Locería': 1380
+}
 
+#Filters down by city
+df2 = df2[df2['location'].isin(city_prices)].copy()
+
+df2['avg_city_price'] = df2['location'].map(city_prices)
+
+df2 = df2[df2['price_per_m2'] <= 0.75 * df2['avg_city_price']].reset_index(drop=True)
+
+
+#(Optional) Detect specific keywords like “remodelar”, “rebajada”, etc.
+# Define synonym lists
+renovation_keywords = [
+    'remodelar', 
+    'reformar', 
+    'renovar', 
+    'reparar', 
+    'actualizar', 
+    'mejorar', 
+    'para remodelar', 
+    'necesita renovación'
+]
+
+reduced_keywords = [
+    'rebajada', 
+    'descuento', 
+    'oferta', 
+    'negociable', 
+    'bajada de precio'
+]
+
+negotiate_keywords = [
+    'precio negociable',
+    'se puede negociar',
+    'negociable',
+    'acepta ofertas',
+    'dispuesto a negociar',
+    'precio conversable',
+    'negociación disponible',
+    'abierto a ofertas'
+]
+
+urgent_keywords = [
+    'urgente',
+    'venta rápida',
+    'se necesita vender pronto',
+    'liquidación',
+    'venta inmediata',
+    'apresurada',
+    'se escucha oferta urgente',
+    'venta por motivo urgente'
+]
+
+# Combine keywords into regex patterns
 renovation_pattern = '|'.join(renovation_keywords)
 reduced_pattern = '|'.join(reduced_keywords)
+negotiate_pattern = '|'.join(negotiate_keywords)
+urgent_pattern = '|'.join(urgent_keywords)
 
+# Create the new boolean columns
 df2['needs_renovation'] = df2['description'].str.contains(renovation_pattern, case=False, na=False)
 df2['price_reduced'] = df2['description'].str.contains(reduced_pattern, case=False, na=False)
+df2['negotiate'] = df2['description'].str.contains(negotiate_pattern, case=False, na=False)
+df2['urgent'] = df2['description'].str.contains(urgent_pattern, case=False, na=False)
 
-print("\n📋 Filtered Listings:")
+
+
 print(df2)
