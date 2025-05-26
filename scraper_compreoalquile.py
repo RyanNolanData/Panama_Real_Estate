@@ -21,6 +21,7 @@ driver = uc.Chrome(options=options)
 # Start URL
 url = 'https://www.compreoalquile.com/casas-o-apartamentos-en-venta-en-panama-provincia-ordenado-por-fechaonline-descendente.html'
 driver.get(url)
+time.sleep(10)
 
 data = []
 page_num = 1
