@@ -73,8 +73,8 @@ while True:
     # Try to go to next page
     try:
         next_button = driver.find_element(By.CSS_SELECTOR, '[data-qa="PAGING_NEXT"]')
-        if not next_button.get_attribute("href"):
-            print("🚫 No more pages.")
+        if "disabled" in next_button.get_attribute("class").lower():
+            print("🚫 Next button is disabled.")
             break
         driver.execute_script("arguments[0].click();", next_button)
         page_num += 1
